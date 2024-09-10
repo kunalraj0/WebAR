@@ -26,3 +26,10 @@ document.querySelector('#example-target').addEventListener("targetLost", event =
   var iframe = document.querySelector('iframe');
     iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
 });
+
+
+window.addEventListener("click", ()=>{
+  const video = document.getElementById("video")
+
+  video.play()
+})
