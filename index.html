@@ -2,32 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Youtube Videos</title>
-    <script>
-        // Function to check if the device is iOS
-        function isIOS() {
-            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        }
-    
-        // Request motion sensor access only on iOS devices
-        if (isIOS()) {
-            if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-                // iOS 13+ specific code
-                DeviceMotionEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            console.log("Device motion access granted!");
-                        } else {
-                            alert("Device motion access denied. This AR experience may not work correctly.");
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                alert("Your iOS device doesn't support motion sensor access.");
-            }
-        }
-    </script>
-    
+    <title>Youtube Videos</title>    
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="js/aframe-websurfaces-custom.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image.prod.js"></script>
@@ -57,6 +32,9 @@
             Stop
         </button>
     </div>
+    <div id="sensorPrompt">
+        <button id="requestAccess">Enable AR Experience</button>
+      </div>
     <a-scene
         mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.001; filterBeta: 10"
         vr-mode-ui="enabled: false">
@@ -73,6 +51,39 @@
         </a-entity>
     </a-scene>
 </body>
+
+<script>
+    // Function to check if the device is iOS
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
+  
+    document.getElementById("requestAccess").addEventListener("click", function () {
+      // Only request motion sensor access on iOS devices
+      if (isIOS()) {
+        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+          // iOS 13+ specific code
+          DeviceMotionEvent.requestPermission()
+            .then(permissionState => {
+              if (permissionState === 'granted') {
+                console.log("Device motion access granted!");
+                // Hide the prompt and start the AR experience
+                document.getElementById("sensorPrompt").style.display = "none";
+              } else {
+                alert("Device motion access denied. This AR experience may not work correctly.");
+              }
+            })
+            .catch(console.error);
+        } else {
+          alert("Your iOS device doesn't support motion sensor access.");
+        }
+      } else {
+        // Hide the prompt if not iOS, and allow the AR experience to start
+        document.getElementById("sensorPrompt").style.display = "none";
+      }
+    });
+  </script>
+
 <script src="js/main.js"></script>
 
 </html>
