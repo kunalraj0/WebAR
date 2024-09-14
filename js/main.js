@@ -28,8 +28,8 @@ document.querySelector('#example-target').addEventListener("targetLost", event =
 });
 
 
-window.addEventListener("click", ()=>{
+/* window.addEventListener("click", ()=>{
   const video = document.getElementById("video")
 
   video.play()
-})
+}) */
