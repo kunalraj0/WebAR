@@ -5,9 +5,14 @@
     transform: translate(-50%, -50%);
     margin: 0 auto;
     
-    z-index: 2;
+    z-index: -1;
 }
 
 button {
     font-size: 18px;
 }
+
+a-scene {
+    position: relative;
+    z-index: -2; /* AR scene goes behind the prompt */
+  }
