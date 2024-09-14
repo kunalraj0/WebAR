@@ -12,7 +12,3 @@ button {
     font-size: 18px;
 }
 
-a-scene {
-    position: relative;
-    z-index: 1; /* AR scene goes behind the prompt */
-  }
