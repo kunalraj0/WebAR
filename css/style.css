@@ -14,5 +14,5 @@ button {
 
 a-scene {
     position: relative;
-    z-index: -2; /* AR scene goes behind the prompt */
+    z-index: 1; /* AR scene goes behind the prompt */
   }
